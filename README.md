@@ -85,27 +85,28 @@ add allowed-address=10.2.53.1/32 endpoint-address=143.198.106.172 endpoint-port=
     51820 interface=piwire persistent-keepalive=25s public-key=\
     "uiLn89yy/fNGrA2zmGiwD4BndqSMJ5Let/hfR91I9F8=" preshared-key="ruM0RuSduDOYwRw0XhZ6hlrcbq+fOAzQCPM5SqeQDXw="
 ```
-Para la direccion Ip
-/ip address
+- Para la direccion Ip
 ```
+/ip address
 add address=10.2.53.2/24 interface=piwire network=10.2.53.0
 ```
-Cambia los Dns en 
-`ip dns set servers=10.2.53.1`
-
+- Cambia los Dns en 
+```
+/ip dns set servers=10.2.53.1
+```
 ## Script cambio automatico en mikrotik
 Ahora automatizaremos para cuando pihole este funcionando tome las Dns de pihole y cuando no funcione o este caido, tome las de google.
 
-Para ello necesitamos colocarle un comentario a los networks que tengas en `/ip dhcp-server network` por ejemplo para el primero `networkdns1` Ya que usaremos el comentario para realizar el camnio por medio de busqueda en el script.
+- Para ello necesitamos colocarle un comentario a los networks que tengas en `/ip dhcp-server network` por ejemplo para el primero `networkdns1` Ya que usaremos el comentario para realizar el camnio por medio de busqueda en el script.
 
-Tambien colocaremos en una lista al grupo de direcciones a cuales afectara, en mi caso tengo 2 la `172.19.0.0/24` para pppoe y `192.168.19.0/24` para el hotspot
+- Tambien colocaremos en una lista al grupo de direcciones a cuales afectara, en mi caso tengo 2 la `172.19.0.0/24` para pppoe y `192.168.19.0/24` para el hotspot
 ```
 /ip firewall address-list
 add address=172.19.0.0/24 list=LAN
 add address=192.168.19.0/24 list=LAN
 ```
 
-Regla nat que funcionara en conjunto para el cambio de Dns automatico
+- Regla nat que funcionara en conjunto para el cambio de Dns automatico
 ```
 /ip firewall nat
 add action=dst-nat chain=dstnat comment=REGLA-1 dst-port=53 protocol=udp \
@@ -113,7 +114,7 @@ add action=dst-nat chain=dstnat comment=REGLA-1 dst-port=53 protocol=udp \
 add action=dst-nat chain=dstnat comment=REGLA-2 dst-port=53 protocol=tcp \
     src-address-list=LAN to-addresses=10.2.53.1
 ```
-Script que esta concatenado al netwatch , se ejecutara uno de los dos dependiendo si esta, up o down.
+- Script que esta concatenado al netwatch , se ejecutara uno de los dos dependiendo si esta, up o down.
 ```
 /system script
 add dont-require-permissions=yes name=add-pihole-dns owner=Rivera policy=\
@@ -131,7 +132,7 @@ add dont-require-permissions=yes name=remove-pihole-dns owner=Rivera policy=\
     d comment=\"hotspot-network\"]\r\
     \n/ip dns set servers=8.8.8.8"
 ```
-Netwatch que estara checando si esta up o down.
+- Netwatch que estara checando si esta up o down.
 ```
 /tool netwatch
 add disabled=no down-script=remove-pihole-dns host=10.2.53.1 http-codes="" \
