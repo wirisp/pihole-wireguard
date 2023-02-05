@@ -97,7 +97,7 @@ add address=10.2.53.2/24 interface=piwire network=10.2.53.0
 ## Script cambio automatico en mikrotik
 Ahora automatizaremos para cuando pihole este funcionando tome las Dns de pihole y cuando no funcione o este caido, tome las de google.
 
-- Para ello necesitamos colocarle un comentario a los networks que tengas en `/ip dhcp-server network` por ejemplo para el primero `networkdns1` Ya que usaremos el comentario para realizar el camnio por medio de busqueda en el script.
+- Para ello necesitamos colocarle un **comentario** a los networks que tengas en `/ip dhcp-server network` por ejemplo para el primero `networkdns1` Ya que usaremos el comentario para realizar el cambio por medio de busqueda en el script.
 
 - Tambien colocaremos en una lista al grupo de direcciones a cuales afectara, en mi caso tengo 2 la `172.19.0.0/24` para pppoe y `192.168.19.0/24` para el hotspot
 ```
@@ -114,22 +114,23 @@ add action=dst-nat chain=dstnat comment=REGLA-1 dst-port=53 protocol=udp \
 add action=dst-nat chain=dstnat comment=REGLA-2 dst-port=53 protocol=tcp \
     src-address-list=LAN to-addresses=10.2.53.1
 ```
-- Script que esta concatenado al netwatch , se ejecutara uno de los dos dependiendo si esta, up o down.
+- Script que esta concatenado al netwatch , se ejecutara uno de los dos dependiendo si esta, up o down,si tienes mas de 1 network agregarlo segun su comentario `networkdns1`
+
 ```
 /system script
 add dont-require-permissions=yes name=add-pihole-dns owner=Rivera policy=\
     ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon source="/\
     ip firewall nat set to-addresses=10.2.53.1 [find comment=\"REGLA-1\"]\r\
     \n/ip firewall nat set to-addresses=10.2.53.1 [find comment=\"REGLA-2\"]\r\
-    \n/ip dhcp-server network set dns-server=10.2.53.1 [find comment=\"hotspot\
-    -network\"]\r\
+    \n/ip dhcp-server network set dns-server=10.2.53.1 [find comment=\"network\
+    dns1\"]\r\
     \n/ip dns set servers=10.2.53.1"
 add dont-require-permissions=yes name=remove-pihole-dns owner=Rivera policy=\
     ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon source="/\
     ip firewall nat set to-addresses=8.8.8.8 [find comment=\"REGLA-1\"]\r\
     \n/ip firewall nat set to-addresses=8.8.8.8 [find comment=\"REGLA-2\"]\r\
     \n/ip dhcp-server network set dns-server=192.168.19.1,8.8.8.8,8.8.4.4 [fin\
-    d comment=\"hotspot-network\"]\r\
+    d comment=\"networkdns1\"]\r\
     \n/ip dns set servers=8.8.8.8"
 ```
 - Netwatch que estara checando si esta up o down.
