@@ -16,6 +16,7 @@ timedatectl set-timezone America/Mexico_City
 git clone https://github.com/wirisp/pihole-wireguard.git pi
 ```
 - Accedemos a la carpeta , movemos los archivos a /root y ejecutamos el script piwire, el cual contiene pihole + wireguard
+```
 cd pi && mv * /root && cd && chmod +x *.sh
 ./piwire.sh
 ```
