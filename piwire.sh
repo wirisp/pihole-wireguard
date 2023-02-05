@@ -49,7 +49,7 @@ function addClient() {
 	# Create client file and add the server as a peer
 	echo "[Interface]
 PrivateKey = $CLIENT_PRIV_KEY
-Address = $CLIENT_WG_IPV4/24, $CLIENT_WG_IPV6/32
+Address = $CLIENT_WG_IPV4/32, $CLIENT_WG_IPV6/32
 DNS = $CLIENT_DNS_1, $CLIENT_DNS_2
 ${CLIENT_MTU}
 [Peer]
@@ -73,6 +73,8 @@ AllowedIPs = $CLIENT_WG_IPV4/32, $CLIENT_WG_IPV6/128" >>"/etc/wireguard/$SERVER_
 	echo "It is also available in $HOME/$SERVER_WG_NIC-client-$WG_CLIENT_COUNT.conf"
     echo "Regenerate this QR Code in the future with this command:"
     echo "sudo cat $(echo $HOME)/$(echo $SERVER_WG_NIC)-client-$(echo $WG_CLIENT_COUNT).conf | qrencode -t ansiutf8 -l L"
+    echo "############################  PPEER DEL CLIENTE #########################################"
+    sudo cat $(echo $HOME)/$(echo $SERVER_WG_NIC)-client-$(echo $WG_CLIENT_COUNT).conf
 }
 
 if [ "$EUID" -ne 0 ]; then
@@ -160,7 +162,7 @@ SERVER_WG_IPV6="fc10:253::1"
 read -rp "Server's WireGuard IPv6: " -e -i "$SERVER_WG_IPV6" SERVER_WG_IPV6
 
 # Generate random number within private ports range
-SERVER_PORT="51515"
+SERVER_PORT="51820"
 read -rp "Server's WireGuard port: " -e -i "$SERVER_PORT" SERVER_PORT
 
 # Install WireGuard tools and module
