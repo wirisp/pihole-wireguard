@@ -107,6 +107,9 @@ add address=192.168.19.0/24 list=LAN
 ```
 
 - Regla nat que funcionara en conjunto para el cambio de Dns automatico
+
+<img width="729" alt="Reglas firewall nat" src="https://user-images.githubusercontent.com/13319563/216865517-3c85abe3-c3b7-4cc6-b4f9-9b454fb4895b.png">
+
 ```
 /ip firewall nat
 add action=dst-nat chain=dstnat comment=REGLA-1 dst-port=53 protocol=udp \
