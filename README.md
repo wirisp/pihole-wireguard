@@ -116,6 +116,9 @@ add action=dst-nat chain=dstnat comment=REGLA-2 dst-port=53 protocol=tcp \
 ```
 - Script que esta concatenado al netwatch , se ejecutara uno de los dos dependiendo si esta, up o down,si tienes mas de 1 network agregarlo segun su comentario `networkdns1`
 
+<img width="483" alt="Comentario network" src="https://user-images.githubusercontent.com/13319563/216865019-5dd29ac6-72b2-46e1-901b-619d047d992d.png">
+
+
 ```
 /system script
 add dont-require-permissions=yes name=add-pihole-dns owner=Rivera policy=\
