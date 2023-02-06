@@ -46,6 +46,7 @@ Agregamos `https://raw.githubusercontent.com/vincentkenny01/spotblock/master/spo
 Actualizamos gravity en Tools> Update Gravity o en `IP/admin/gravity.php`
 
 ## Activar Safesearch en los buscadores
+<img width="962" alt="Safesearch pihole" src="https://user-images.githubusercontent.com/13319563/216865618-378bb0b4-4353-4aa6-8c2d-af38bbc23bb8.png">
 
 #Safesearch de google
 `./safesearch`
