@@ -188,9 +188,15 @@ elif [[ $OS == 'fedora' ]]; then
 	fi
 	dnf install -y wireguard-tools iptables qrencode
 elif [[ $OS == 'centos' ]]; then
-	curl -Lo /etc/yum.repos.d/wireguard.repo https://copr.fedorainfracloud.org/coprs/jdoss/wireguard/repo/epel-7/jdoss-wireguard-epel-7.repo
-	yum -y install epel-release
-	yum -y install wireguard-dkms wireguard-tools iptables qrencode
+	dnf -y install epel-release
+	dnf install dnf-plugins-core
+	dnf config-manager --set-enabled powertools
+	dnf copr enable jdoss/wireguard
+	#curl -Lo /etc/yum.repos.d/wireguard.repo https://copr.fedorainfracloud.org/coprs/jdoss/wireguard/repo/epel-7/jdoss-wireguard-epel-7.repo
+	#yum -y install epel-release
+	dnf -y install wireguard-dkms wireguard-tools iptables qrencode firewald
+	dnf install firewalld -y
+	systemctl enable --now firewalld
 elif [[ $OS == 'arch' ]]; then
 	pacman -S --noconfirm linux-headers
 	pacman -S --noconfirm wireguard-tools iptables wireguard-arch qrencode
