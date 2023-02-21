@@ -289,7 +289,8 @@ fi
 
 # install pihole if it has not been installed
 if ! type "pihole" > /dev/null; then
-	curl -sSL https://install.pi-hole.net | bash
+	#curl -sSL https://install.pi-hole.net | bash
+	curl -sSL https://install.pi-hole.net | PIHOLE_SKIP_OS_CHECK=true sudo -E bash
 fi
 
 # use client configurations to determine if this is the first run, and apply preferred initial configurations
