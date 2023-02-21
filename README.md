@@ -1,12 +1,29 @@
 # Instalacion de Pihole + wireguard + unbound
 Pihole es un bloqueador de anuncios y wireguard permite realizar un tunnel vpn, por lo que se puede instalar pihole en un vps remotamente y en el dispocitivo local acceder a ese vpn
-la instalacion es realizada en un sistema ubuntu
+
+### En ubuntu
 
 - Actualizamos el sistema e instalamos algunos paquetes
 ```
 sudo su 
-apt update && apt install git nano -y
+apt update && apt install git nano git -y
 ```
+
+### Para almalinux
+```
+sudo su
+dnf makecache --refresh
+```
+
+```
+setenforce 0
+sed -i 's/^SELINUX=.*/SELINUX=permissive/g' /etc/selinux/config
+```
+
+```
+sudo dnf install bind-utils nano git
+```
+
 - Cambiamos la zona horaria
 ```
 timedatectl set-timezone America/Mexico_City
