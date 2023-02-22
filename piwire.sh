@@ -147,7 +147,7 @@ elif [[ $OS == 'debian' ]]; then
 	printf 'Package: *\nPin: release a=unstable\nPin-Priority: 90\n' >/etc/apt/preferences.d/limit-unstable
 	apt update
 	apt-get install -y "linux-headers-$(uname -r)"
-	apt-get install -y wireguard iptables resolvconf qrencode
+	apt-get install -y wireguard iptables resolvconf qrencode curl dnsutils
 	apt-get install -y bc # mitigate https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=956869
 elif [[ $OS == 'fedora' ]]; then
 	if [[ $VERSION_ID -lt 32 ]]; then
