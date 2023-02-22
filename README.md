@@ -6,7 +6,7 @@ Pihole es un bloqueador de anuncios y wireguard permite realizar un tunnel vpn, 
 - Actualizamos el sistema e instalamos algunos paquetes
 ```
 sudo su 
-apt update && apt install git nano git -y
+apt update && apt install dnsutils git nano git -y
 ```
 
 ### Para almalinux
