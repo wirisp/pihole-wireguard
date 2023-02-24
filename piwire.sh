@@ -100,7 +100,7 @@ if [[ -e /etc/debian_version ]]; then
 elif [[ -e /etc/fedora-release ]]; then
 	source /etc/os-release
 	OS=$ID
-elif [[ -e /etc/centos-release ]]; then
+elif [[ -e /etc/almalinux-release || -e /etc/rocky-release || -e /etc/centos-release  ]]; then
 	OS=centos
 elif [[ -e /etc/arch-release ]]; then
 	OS=arch
