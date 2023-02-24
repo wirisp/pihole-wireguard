@@ -35,19 +35,56 @@ git clone https://github.com/wirisp/pihole-wireguard.git pi
 - Accedemos a la carpeta , movemos los archivos a /root y ejecutamos el script piwire, el cual contiene pihole + wireguard
 ```
 cd pi && mv * /root && cd && chmod +x *.sh
-./piwire.sh
+./wireguard.sh
 ```
+- Si el vps no soporta ipv6 dara error
+Introducir el siguiente comando el cual dara error
+```
+sudo systemctl restart wg-quick@wg0.service
+```
+Para ello editamos un archivo
+```
+nano /etc/sysctl.conf
+```
+Colocamos dentro / cambiamos , desactivando ipv6 a 0
+```
+net.ipv6.conf.all.disable_ipv6 = 0
+net.ipv4.ip_forward = 1
+```
+Desactivamos wg0
+```
+wg-quick down wg0
+```
+Ahora iniciamos el servicio
+```
+sudo systemctl restart wg-quick@wg0.service
+```
+
+- Para instalar pihole en almalinux
+```
+curl -sSL https://install.pi-hole.net | sudo bash
+ ```
+Nos dara un error y ahora ejecutamos
+```
+curl -sSL https://install.pi-hole.net | PIHOLE_SKIP_OS_CHECK=true sudo -E bash
+```
+
 En la instalacion de pihole seleccionar la interfaz `wg0`
 
 Puedes cambiar la contraseña de pihole con:
-`pihole -a -p`
+```
+pihole -a -p
+```
+```
+chmod 644 /var/log/pihole.log
+```
 
 Acceder al interfazo con `IP/admin` donde 
 **IP** = Ip de tu servidor
 
 En la administracion del servidor abrir el puerto`5335,8080,80,51820`, si no funciona abrir todos los puertos.
 
-# Instalacion de unbound
+# Instalacion de unbound 
 unbound permite usar los DNS localmente y asi poder usar el bloqueador y los DNS propios, esto agiliza y acelera la respuesta.
 ```
 ./unbound.sh
