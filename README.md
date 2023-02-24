@@ -84,8 +84,32 @@ Acceder al interfazo con `IP/admin` donde
 **IP** = Ip de tu servidor
 
 En la administracion del servidor abrir el puerto`5335,8080,80,51820`, si no funciona abrir todos los puertos.
+# Instalacion unbound almalinux
+```
+dnf -y install unbound bind-utils
+```
 
-# Instalacion de unbound 
+```
+sed -i '/interface: 0.0.0.0$/s/#//' /etc/unbound/unbound.conf
+sed -i 's/127.0.0.0\/8 allow/10.0.0.0\/24 allow/' /etc/unbound/unbound.conf
+```
+
+```
+unbound-checkconf
+```
+
+```
+systemctl enable unbound
+service unbound start
+sudo systemctl status unbound
+```
+
+```
+firewall-cmd --permanent --add-service dns
+firewall-cmd --reload
+```
+
+# Instalacion de unbound ubuntu
 unbound permite usar los DNS localmente y asi poder usar el bloqueador y los DNS propios, esto agiliza y acelera la respuesta.
 ```
 ./unbound.sh
