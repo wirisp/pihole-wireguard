@@ -22,7 +22,9 @@ chmod +x *.sh
 bash piwire.sh
 ```
 
-### Para almalinux
+### Instalacion wireguard en almalinux despues pihole
+Se instala primero wireguard y despues pihole, se utilizara almalinux 8
+
 ```
 sudo su
 dnf makecache --refresh
@@ -45,7 +47,8 @@ timedatectl set-timezone America/Mexico_City
 ```
 git clone https://github.com/wirisp/pihole-wireguard.git pi
 ```
-- Accedemos a la carpeta , movemos los archivos a /root y ejecutamos el script piwire, el cual contiene pihole + wireguard
+- Accedemos a la carpeta , movemos los archivos a /root y ejecutamos el script piwire, el cual contiene pihole + wireguard, optamos por la instalacion automatica, pero alternativamente podemos usar la guiada.
+- los dns se la automatica son 10.2.53.1 y fc10:253::1
 ```
 cd pi && mv * /root && cd && chmod +x *.sh
 sudo bash wireguard.sh --auto
