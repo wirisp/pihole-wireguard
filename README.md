@@ -115,6 +115,11 @@ unbound-checkconf
 ```
 
 ```
+cd
+\mv /pi/setupVars.conf /etc/pihole/setupVars.conf
+```
+
+```
 systemctl enable unbound
 service unbound start
 sudo systemctl status unbound
