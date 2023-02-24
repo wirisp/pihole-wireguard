@@ -247,3 +247,11 @@ add disabled=no down-script=remove-pihole-dns host=10.2.53.1 http-codes="" \
     interval=10s test-script="" timeout=2s type=simple up-script=\
     add-pihole-dns
 ```
+
+
+
+
+
+
+#### Source modificado
+https://github.com/hwdsl2/wireguard-install
