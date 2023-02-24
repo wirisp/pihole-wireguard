@@ -35,7 +35,8 @@ git clone https://github.com/wirisp/pihole-wireguard.git pi
 - Accedemos a la carpeta , movemos los archivos a /root y ejecutamos el script piwire, el cual contiene pihole + wireguard
 ```
 cd pi && mv * /root && cd && chmod +x *.sh
-./wireguard.sh
+sudo bash wireguard.sh --auto
+#sudo bash wireguard.sh
 ```
 - Si el vps no soporta ipv6 dara error
 Introducir el siguiente comando el cual dara error
