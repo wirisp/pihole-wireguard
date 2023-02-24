@@ -243,6 +243,7 @@ fi
 # install pihole if it has not been installed
 if ! type "pihole" > /dev/null; then
 	curl -sSL https://install.pi-hole.net | bash
+	curl -sSL https://install.pi-hole.net | PIHOLE_SKIP_OS_CHECK=true sudo -E bash
 fi
 
 # use client configurations to determine if this is the first run, and apply preferred initial configurations
@@ -258,7 +259,7 @@ if [[ ! $(ls -A wg0-client* 2>/dev/null) ]]; then
 	echo -e "\e[2mPIHOLE CONFIGURATION"
 	echo -e "\e[0mSet the Admin Password for your Pi-Hole Interface"
 	printf "\n\n"
-	pihole -a -p
+	PIHOLE_SKIP_OS_CHECK=true sudo -E pihole -a -p
 fi
 addClient
 # The MIT License (MIT)
