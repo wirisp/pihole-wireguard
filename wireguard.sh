@@ -204,7 +204,7 @@ show_config() {
 		[ -n "$public_ip" ] && printf '%s\n' "$public_ip" || printf '%s\n' "$ip"
 		echo "Port: UDP/51820"
 		echo "Client name: client"
-		echo "Client DNS: Google Public DNS"
+		echo "Client DNS: Ip Dns privado"
 	fi
 }
 
@@ -318,7 +318,7 @@ new_client_dns() {
 		echo
 		echo "Select a DNS server for the client:"
 		echo "   1) Current system resolvers"
-		echo "   2) Google Public DNS"
+		echo "   2) Ip Dns privado"
 		echo "   3) Cloudflare DNS"
 		echo "   4) OpenDNS"
 		echo "   5) Quad9"
