@@ -409,14 +409,14 @@ EOF
 	# Create client configuration
 	cat << EOF > "$export_dir$client".conf
 [Interface]
-Address = 10.2.53.$octet/24$(grep -q 'fc10:253::1' /etc/wireguard/wg0.conf && echo ", fc10:253::$octet/64")
+Address = 10.2.53.$octet/24$(grep -q 'fc10:253::1' /etc/wireguard/wg0.conf && echo ", fc10:253::$octet/128")
 DNS = $dns
 PrivateKey = $key
-
+MTU = 1420
 [Peer]
 PublicKey = $(grep PrivateKey /etc/wireguard/wg0.conf | cut -d " " -f 3 | wg pubkey)
 PresharedKey = $psk
-AllowedIPs = 0.0.0.0/0, ::/0
+AllowedIPs = 10.2.53.1/32, fc10:253::1/128
 Endpoint = $(grep '^# ENDPOINT' /etc/wireguard/wg0.conf | cut -d " " -f 3):$(grep ListenPort /etc/wireguard/wg0.conf | cut -d " " -f 3)
 PersistentKeepalive = 25
 EOF
@@ -946,3 +946,9 @@ fi
 wgsetup "$@"
 
 exit 0
+#Sie el vps no soporta ipv6 entonces dbemos eliminar el 1 de net.ipv6.conf.all.forwarding=1 a 0
+# nano /etc/sysctl.conf
+#net.ipv6.conf.all.disable_ipv6 = 0
+#net.ipv4.ip_forward = 1
+#wg-quick down wg0
+#sudo systemctl restart wg-quick@wg0.service
