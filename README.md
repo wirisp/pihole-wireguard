@@ -74,6 +74,7 @@ wg-quick down wg0
 ```
 Ahora iniciamos el servicio
 ```
+sysctl -p
 sudo systemctl restart wg-quick@wg0.service
 ```
 
