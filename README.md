@@ -116,8 +116,21 @@ unbound-checkconf
 ```
 
 ```
-cd
-\mv /pi/setupVars.conf /etc/pihole/setupVars.conf
+echo "PIHOLE_INTERFACE=tun0
+QUERY_LOGGING=true
+INSTALL_WEB_SERVER=true
+INSTALL_WEB_INTERFACE=true
+LIGHTTPD_ENABLED=true
+CACHE_SIZE=10000
+DNS_FQDN_REQUIRED=true
+DNS_BOGUS_PRIV=true
+DNSMASQ_LISTENING=single
+WEBPASSWORD=a31c87c18e9ff2eca7edb3aa0f7ee8ec24e92157a6f55d873115fd4084c37b0c
+BLOCKING_ENABLED=true
+PIHOLE_DNS_1=127.0.0.1#5335
+PIHOLE_DNS_2=127.0.0.1#5335
+DNSSEC=false
+REV_SERVER=false" >> /etc/pihole/setupVars.conf 
 ```
 
 ```
