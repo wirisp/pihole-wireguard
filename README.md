@@ -86,10 +86,11 @@ Nos dara un error y ahora ejecutamos
 ```
 curl -sSL https://install.pi-hole.net | PIHOLE_SKIP_OS_CHECK=true sudo -E bash
 ```
+- Si en nuestro sistema tenemos httpd ya instalado funcionando con algo mas, pihole instala el servidor lighttpd por lo que cuando pregunta si deseamos instalar el servicor , seleccionamos que no
 
-En la instalacion de pihole seleccionar la interfaz `wg0`
+- En la instalacion de pihole seleccionar la interfaz `wg0`
 
-Puedes cambiar la contraseña de pihole con:
+- Puedes cambiar la contraseña de pihole con:
 ```
 pihole -a -p
 ```
